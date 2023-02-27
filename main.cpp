@@ -120,7 +120,12 @@ void Output(DoubleLinkedList *list) {
 void DelectHead(DoubleLinkedList *list) {
     if (list->length == 0) {
         return;
+    } else if (list->length == 1) {
+        free(list->head);
+        return;
     }
+
+    DuLNode *p = list->head;
 
 }
 
