@@ -117,6 +117,13 @@ void Output(DoubleLinkedList *list) {
     printf("NULL\n");
 }
 
+void DelectHead(DoubleLinkedList *list) {
+    if (list->length == 0) {
+        return;
+    }
+
+}
+
 int DestroyDoubleLinkedList(DoubleLinkedList *list) {
     if (!list) return 0;
     while (list->length) {
