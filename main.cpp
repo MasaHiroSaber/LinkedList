@@ -109,6 +109,7 @@ int Insert(DoubleLinkedList *list, int index, int value) {
 
 void Output(DoubleLinkedList *list) {
     DuLNode *node = list->head;
+    printf("The LinkedList(%d):", list->length);
     for (int i = 0; i < list->length; ++i) {
         printf("%d->", node->data);
         node = node->next;
@@ -116,7 +117,7 @@ void Output(DoubleLinkedList *list) {
     printf("NULL\n");
 }
 
-void DelectHead(DoubleLinkedList *list) {
+void DeleteHead(DoubleLinkedList *list) {
     if (list->length == 0) {
         return;
     }
@@ -138,7 +139,7 @@ void DelectHead(DoubleLinkedList *list) {
     list->length--;
 }
 
-void DelectTail(DoubleLinkedList *list) {
+void DeleteTail(DoubleLinkedList *list) {
     if (list->length == 0) {
         return;
     }
@@ -159,14 +160,14 @@ void DelectTail(DoubleLinkedList *list) {
     list->length--;
 }
 
-int Delect(DoubleLinkedList *list, int index) {
+int Delete(DoubleLinkedList *list, int index) {
     if (!list) return 0;
-    if (index < 0 || index >= list->length) return 0;
+    if (index < 0 || index >= (list->length) - 1) return 0;
     else if (index == 0) {
-        DelectHead(list);
+        DeleteHead(list);
         return 1;
-    } else if (index == list->length) {
-        DelectTail(list);
+    } else if (index == (list->length) - 1) {
+        DeleteTail(list);
         return 1;
     }
 
@@ -196,19 +197,19 @@ int DestroyDoubleLinkedList(DoubleLinkedList *list) {
     free(list);
 }
 
-int DestroyDoubleLinkedList_2(DoubleLinkedList *list) {
-    if (!list) return 0;
-    DuLNode *p = list->head->next;
-    while (p) {
-        list->head->next = p->next;
-        free(p);
-        list->length--;
-        p = list->head->next;
-    }
-    printf("Destroy the whole list!\n");
-    Output(list);
-    free(list);
-}
+//int DestroyDoubleLinkedList_2(DoubleLinkedList *list) {
+//    if (!list) return 0;
+//    DuLNode *p = list->head->next;
+//    while (p) {
+//        list->head->next = p->next;
+//        free(p);
+//        list->length--;
+//        p = list->head->next;
+//    }
+//    printf("Destroy the whole list!\n");
+//    Output(list);
+//    free(list);
+//}
 
 int main() {
     srand(time(0));
@@ -227,9 +228,17 @@ int main() {
                 else printf("SUCCESS: Insert %d at %d in the list!\n", value, index);
                 break;
             }
+            case 3: {
+                int code = Delete(list, index);
+                if (code == 0) printf("ERROR: Delete at the wrong %d position!\n", index);
+                else printf("SUCCESS: Delete a data at %d in the list!\n", index);
+                break;
+            }
         }
         Output(list);
     }
+    printf("***************************************************\n");
+    DestroyDoubleLinkedList(list);
     return 0;
 }
 

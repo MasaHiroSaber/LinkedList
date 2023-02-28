@@ -111,7 +111,7 @@ int main() {
         Output(linkedlist);
     }
 
-    printf("\nFirst Data = %d\n:", linkedlist->head.next->data);
+    //printf("\nFirst Data = %d\n:", linkedlist->head.next->data);
     printf("***************************************************\n");
     DestroyLinkedList(linkedlist);
     return 0;
