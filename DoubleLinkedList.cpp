@@ -18,7 +18,7 @@ typedef struct DoubleLinkedList {     //双链表的结构体
 } DoubleLinkedList;
 
 
-DuLNode *NewDuLNode(int value) {
+DuLNode *NewDuLNode(int value) {        //创建一个新结点
     //struct DuLNode *node = (DuLNode *) malloc(sizeof (DuLNode));
     //IDE提示:Use auto when initializing with a cast to avoid duplicating the type name
     auto *node = (DuLNode *) malloc(sizeof(DuLNode));
@@ -71,7 +71,7 @@ void InsertTail(DoubleLinkedList *list, int value) {    //插入尾结点
     list->length++;
 }
 
-int Insert(DoubleLinkedList *list, int index, int value) {
+int Insert(DoubleLinkedList *list, int index, int value) {      //任意位置插入结点，其中包括头结点与尾结点
     if (!list) return 0;
     if (index < 0 || index > list->length) return 0;
     else if (index == 0) {        //插入位置index等于0时相当于插入头结点
@@ -107,7 +107,7 @@ int Insert(DoubleLinkedList *list, int index, int value) {
 //    printf("NULL\n");
 //}
 
-void Output(DoubleLinkedList *list) {
+void Output(DoubleLinkedList *list) {       //打印当前链表
     DuLNode *node = list->head;
     printf("The LinkedList(%d):", list->length);
     for (int i = 0; i < list->length; ++i) {
@@ -117,7 +117,7 @@ void Output(DoubleLinkedList *list) {
     printf("NULL\n");
 }
 
-void DeleteHead(DoubleLinkedList *list) {
+void DeleteHead(DoubleLinkedList *list) {       //删除头结点
     if (list->length == 0) {
         return;
     }
@@ -139,7 +139,7 @@ void DeleteHead(DoubleLinkedList *list) {
     list->length--;
 }
 
-void DeleteTail(DoubleLinkedList *list) {
+void DeleteTail(DoubleLinkedList *list) {       //删除尾结点
     if (list->length == 0) {
         return;
     }
@@ -160,9 +160,9 @@ void DeleteTail(DoubleLinkedList *list) {
     list->length--;
 }
 
-int Delete(DoubleLinkedList *list, int index) {
+int Delete(DoubleLinkedList *list, int index) {     //删除任意位置结点
     if (!list) return 0;
-    if (index < 0 || index >= (list->length) - 1) return 0;
+    if (index < 0 || index >= (list->length) - 1) return 0;     //0->Tail index = length - 1
     else if (index == 0) {
         DeleteHead(list);
         return 1;
@@ -183,7 +183,7 @@ int Delete(DoubleLinkedList *list, int index) {
 
 }
 
-int DestroyDoubleLinkedList(DoubleLinkedList *list) {
+int DestroyDoubleLinkedList(DoubleLinkedList *list) {       //释放链表
     if (!list) return 0;
     while (list->length) {
         DuLNode *p = list->head;
@@ -211,7 +211,7 @@ int DestroyDoubleLinkedList(DoubleLinkedList *list) {
 //    free(list);
 //}
 
-int main() {
+int main() {                    //主函数从老师发的单链表文件里拿过来用了
     srand(time(0));
 #define MAX_OP 20
     DoubleLinkedList *list = CreateDuLinkedList();
