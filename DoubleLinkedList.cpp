@@ -183,6 +183,27 @@ int Delete(DoubleLinkedList *list, int index) {     //删除任意位置结点
 
 }
 
+int GetNodeValue(DoubleLinkedList *list, int index) {       //获取链表内任意结点的Value
+    if (!list) return 0;
+    if (index < 0 || index > list->length) return 0;
+    DuLNode *p = NULL;
+    if (index < (list->length) / 2) {             //当index的值在链表前部时，从头结点开始遍历
+        p = list->head;
+        while (index--) p = p->next;
+    } else {                                       //当index的值在链表后部时，从尾结点开始遍历
+        p = list->tail;
+        int i = (list->length) - index - 1;
+        while (i--) p = p->prior;
+    }
+
+    int value = p->data;
+    return value;                               //返回Value值
+}
+
+//int ModifyNodeValue(DoubleLinkedList *list,int index,int value){
+//    DuLNode *p =
+//}
+
 int DestroyDoubleLinkedList(DoubleLinkedList *list) {       //释放链表
     if (!list) return 0;
     while (list->length) {
@@ -211,7 +232,9 @@ int DestroyDoubleLinkedList(DoubleLinkedList *list) {       //释放链表
 //    free(list);
 //}
 
-int main() {                    //主函数从老师发的单链表文件里拿过来用了
+
+
+int main() {            //主函数从老师发的单链表文件里的主函数拿过来用了，用来测试代码有无问题
     srand(time(0));
 #define MAX_OP 20
     DoubleLinkedList *list = CreateDuLinkedList();
@@ -237,6 +260,10 @@ int main() {                    //主函数从老师发的单链表文件里拿过来用了
         }
         Output(list);
     }
+    int i;
+    printf("Enter a position : ");
+    scanf_s("%d", &i);
+    printf("Value = %d in the position!\n", GetNodeValue(list, i));
     printf("***************************************************\n");
     DestroyDoubleLinkedList(list);
     return 0;
