@@ -74,11 +74,10 @@ void InsertTail(DoubleLinkedList *list, int value) {    //插入尾结点
 int Insert(DoubleLinkedList *list, int index, int value) {
     if (!list) return 0;
     if (index < 0 || index > list->length) return 0;
-    if (index == 0) {        //插入位置index等于0时相当于插入头结点
+    else if (index == 0) {        //插入位置index等于0时相当于插入头结点
         InsertHead(list, value);
         return 1;
-    }
-    else if (index == list->length) {        //  插入位置等于链表长度相当于插入尾结点
+    } else if (index == list->length) {        //  插入位置等于链表长度相当于插入尾结点
         InsertTail(list, value);
         return 1;
     }
@@ -120,12 +119,66 @@ void Output(DoubleLinkedList *list) {
 void DelectHead(DoubleLinkedList *list) {
     if (list->length == 0) {
         return;
-    } else if (list->length == 1) {
+    }
+    if (list->length == 1) {
         free(list->head);
+        //CreateDuLinkedList();     //重新初始化双链表
+        list->head = NULL;
+        list->tail = NULL;
+        list->length = 0;
         return;
     }
 
     DuLNode *p = list->head;
+    list->head = p->next;
+    list->head->prior = NULL;
+
+    free(p);
+    p = NULL;
+    list->length--;
+}
+
+void DelectTail(DoubleLinkedList *list) {
+    if (list->length == 0) {
+        return;
+    }
+    if (list->length == 1) {
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        list->length = 0;
+        return;
+    }
+
+    DuLNode *p = list->tail;
+    list->tail = p->prior;
+    list->tail->next = NULL;
+
+    free(p);
+    p = NULL;
+    list->length--;
+}
+
+int Delect(DoubleLinkedList *list, int index) {
+    if (!list) return 0;
+    if (index < 0 || index >= list->length) return 0;
+    else if (index == 0) {
+        DelectHead(list);
+        return 1;
+    } else if (index == list->length) {
+        DelectTail(list);
+        return 1;
+    }
+
+    DuLNode *p = list->head;
+    while (index--) p = p->next;
+    p->prior->next = p->next;
+    p->next->prior = p->prior;
+
+    free(p);
+    p = NULL;
+    list->length--;
+    return 1;
 
 }
 
@@ -142,6 +195,7 @@ int DestroyDoubleLinkedList(DoubleLinkedList *list) {
     Output(list);
     free(list);
 }
+
 int DestroyDoubleLinkedList_2(DoubleLinkedList *list) {
     if (!list) return 0;
     DuLNode *p = list->head->next;
