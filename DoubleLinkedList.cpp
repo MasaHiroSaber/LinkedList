@@ -1,7 +1,7 @@
 //Created By MasaHiroSaber
 //Feb.27, 2023 17:12:34 GMT +08:00
 
-#include <cstdio>
+#include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
 
