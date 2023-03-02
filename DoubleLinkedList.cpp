@@ -5,20 +5,22 @@
 #include "stdlib.h"
 #include "time.h"
 
-typedef struct DuLNode {               //双链表结点结构体
+typedef struct DuLNode
+{               //双链表结点结构体
     int data;
     DuLNode *prior;
     DuLNode *next;
 } DuLNode, *DuLinkedList;
 
-typedef struct DoubleLinkedList {     //双链表的结构体
+typedef struct DoubleLinkedList
+{     //双链表的结构体
     DuLNode *head;
     DuLNode *tail;
     int length;
 } DoubleLinkedList;
 
-
-DuLNode *NewDuLNode(int value) {        //创建一个新结点
+DuLNode *NewDuLNode(int value)
+{   //创建一个新结点
     //struct DuLNode *node = (DuLNode *) malloc(sizeof (DuLNode));
     //IDE提示:Use auto when initializing with a cast to avoid duplicating the type name
     auto *node = (DuLNode *) malloc(sizeof(DuLNode));
@@ -29,7 +31,8 @@ DuLNode *NewDuLNode(int value) {        //创建一个新结点
     return node;
 }
 
-DoubleLinkedList *CreateDuLinkedList() {     //初始化双链表
+DoubleLinkedList *CreateDuLinkedList()
+{     //初始化双链表
     auto *list = (DoubleLinkedList *) malloc(sizeof(DoubleLinkedList));
     if (!list) return NULL;
     list->head = NULL;
@@ -37,19 +40,24 @@ DoubleLinkedList *CreateDuLinkedList() {     //初始化双链表
     list->length = 0;
     return list;
 }
-//void init_list(DoubleLinkedList *list) {
+
+//void init_list(DoubleLinkedList *list)
+// {
 //    list->head = NULL;
 //    list->tail = NULL;
 //    list->length = 0;
 //}
 
-void InsertHead(DoubleLinkedList *list, int value) {    //插入头结点
+void InsertHead(DoubleLinkedList *list, int value)
+{    //插入头结点
     DuLNode *newNode = NewDuLNode(value);
 
-    if (list->length == 0) {       //链表为空时
+    if (list->length == 0)
+    {       //链表为空时
         list->head = newNode;
         list->tail = newNode;
-    } else {                           //链表不为空时
+    } else
+    {                           //链表不为空时
         newNode->next = list->head;
         list->head->prior = newNode;
         list->head = newNode;
@@ -57,13 +65,16 @@ void InsertHead(DoubleLinkedList *list, int value) {    //插入头结点
     list->length++;
 }
 
-void InsertTail(DoubleLinkedList *list, int value) {    //插入尾结点
+void InsertTail(DoubleLinkedList *list, int value)
+{    //插入尾结点
     DuLNode *newNode = NewDuLNode(value);
 
-    if (list->length == 0) {        //链表为空时
+    if (list->length == 0)
+    {        //链表为空时
         list->head = newNode;
         list->tail = newNode;
-    } else {                           //链表不为空时
+    } else
+    {                           //链表不为空时
         list->tail->next = newNode;
         newNode->prior = list->tail;
         list->tail = newNode;
@@ -71,13 +82,16 @@ void InsertTail(DoubleLinkedList *list, int value) {    //插入尾结点
     list->length++;
 }
 
-int Insert(DoubleLinkedList *list, int index, int value) {      //任意位置插入结点，其中包括头结点与尾结点
+int Insert(DoubleLinkedList *list, int index, int value)
+{      //任意位置插入结点，其中包括头结点与尾结点
     if (!list) return 0;
     if (index < 0 || index > list->length) return 0;
-    else if (index == 0) {        //插入位置index等于0时相当于插入头结点
+    else if (index == 0)
+    {        //插入位置index等于0时相当于插入头结点
         InsertHead(list, value);
         return 1;
-    } else if (index == list->length) {        //  插入位置等于链表长度相当于插入尾结点
+    } else if (index == list->length)
+    {        //  插入位置等于链表长度相当于插入尾结点
         InsertTail(list, value);
         return 1;
     }
@@ -94,7 +108,6 @@ int Insert(DoubleLinkedList *list, int index, int value) {      //任意位置插入结
     return 1;
 }
 
-
 //void Output(DoubleLinkedList* list)
 //{
 //    DuLNode* p = list->head->next;
@@ -107,21 +120,23 @@ int Insert(DoubleLinkedList *list, int index, int value) {      //任意位置插入结
 //    printf("NULL\n");
 //}
 
-void Output(DoubleLinkedList *list) {       //打印当前链表
+void Output(DoubleLinkedList *list)
+{       //打印当前链表
     DuLNode *node = list->head;
     printf("The LinkedList(%d):", list->length);
-    for (int i = 0; i < list->length; ++i) {
+    for (int i = 0; i < list->length; ++i)
+    {
         printf("%d->", node->data);
         node = node->next;
     }
     printf("NULL\n");
 }
 
-void DeleteHead(DoubleLinkedList *list) {       //删除头结点
-    if (list->length == 0) {
-        return;
-    }
-    if (list->length == 1) {
+void DeleteHead(DoubleLinkedList *list)
+{       //删除头结点
+    if (list->length == 0) return;
+    if (list->length == 1)
+    {
         free(list->head);
         //CreateDuLinkedList();     //重新初始化双链表
         list->head = NULL;
@@ -139,11 +154,11 @@ void DeleteHead(DoubleLinkedList *list) {       //删除头结点
     list->length--;
 }
 
-void DeleteTail(DoubleLinkedList *list) {       //删除尾结点
-    if (list->length == 0) {
-        return;
-    }
-    if (list->length == 1) {
+void DeleteTail(DoubleLinkedList *list)
+{       //删除尾结点
+    if (list->length == 0) return;
+    if (list->length == 1)
+    {
         free(list->head);
         list->head = NULL;
         list->tail = NULL;
@@ -160,13 +175,16 @@ void DeleteTail(DoubleLinkedList *list) {       //删除尾结点
     list->length--;
 }
 
-int Delete(DoubleLinkedList *list, int index) {     //删除任意位置结点
+int Delete(DoubleLinkedList *list, int index)
+{     //删除任意位置结点
     if (!list) return 0;
     if (index < 0 || index >= (list->length) - 1) return 0;     //0->Tail index = length - 1
-    else if (index == 0) {
+    else if (index == 0)
+    {
         DeleteHead(list);
         return 1;
-    } else if (index == (list->length) - 1) {
+    } else if (index == (list->length) - 1)
+    {
         DeleteTail(list);
         return 1;
     }
@@ -180,17 +198,19 @@ int Delete(DoubleLinkedList *list, int index) {     //删除任意位置结点
     p = NULL;
     list->length--;
     return 1;
-
 }
 
-int GetNodeValue(DoubleLinkedList *list, int index) {       //获取链表内任意结点的Value
+int GetNodeValue(DoubleLinkedList *list, int index)
+{       //获取链表内任意结点的Value
     if (!list) return 0;
     if (index < 0 || index > list->length) return 0;
     DuLNode *p = NULL;
-    if (index < (list->length) / 2) {             //当index的值在链表前部时，从头结点开始遍历
+    if (index < (list->length) / 2)
+    {             //当index的值在链表前部时，从头结点开始遍历
         p = list->head;
         while (index--) p = p->next;
-    } else {                                       //当index的值在链表后部时，从尾结点开始遍历
+    } else
+    {                                       //当index的值在链表后部时，从尾结点开始遍历
         p = list->tail;
         int i = (list->length) - index - 1;
         while (i--) p = p->prior;
@@ -204,9 +224,11 @@ int GetNodeValue(DoubleLinkedList *list, int index) {       //获取链表内任意结点
 //    DuLNode *p =
 //}
 
-int DestroyDoubleLinkedList(DoubleLinkedList *list) {       //释放链表
+int DestroyDoubleLinkedList(DoubleLinkedList *list)
+{       //释放链表
     if (!list) return 0;
-    while (list->length) {
+    while (list->length)
+    {
         DuLNode *p = list->head;
         list->head = list->head->next;
         free(p);
@@ -234,24 +256,29 @@ int DestroyDoubleLinkedList(DoubleLinkedList *list) {       //释放链表
 
 
 
-int main() {            //主函数从老师发的单链表文件里的主函数拿过来用了，用来测试代码有无问题
+int main()
+{            //主函数从老师发的单链表文件里的主函数拿过来用了，用来测试代码有无问题
     srand(time(0));
 #define MAX_OP 20
     DoubleLinkedList *list = CreateDuLinkedList();
-    for (auto i = 0; i < MAX_OP; i++) {
+    for (auto i = 0; i < MAX_OP; i++)
+    {
         int op = rand() % 4;
         int value = rand() % 100;
         int index = rand() % (list->length + 3);
-        switch (op) {
+        switch (op)
+        {
             case 0:
             case 1:
-            case 2: {
+            case 2:
+            {
                 int code = Insert(list, index, value);
                 if (code == 0) printf("ERROR: Insert into the wrong %d position!\n", index);
                 else printf("SUCCESS: Insert %d at %d in the list!\n", value, index);
                 break;
             }
-            case 3: {
+            case 3:
+            {
                 int code = Delete(list, index);
                 if (code == 0) printf("ERROR: Delete at the wrong %d position!\n", index);
                 else printf("SUCCESS: Delete a data at %d in the list!\n", index);
